@@ -59,3 +59,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  elasticsearch:
+    image: elasticsearch:8.12.0
+    container_name: es-container
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
