@@ -1,5 +1,5 @@
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 API_BASE_URL = "https://odre.opendatasoft.com/api/explore/v2.1"
@@ -21,11 +21,13 @@ if __name__ == "__main__":
 
     historic_df["date_heure"] = historic_df["date_heure"].dt.tz_convert("Europe/Paris")
 
-    now_floor_hour = datetime.now(tz=ZoneInfo("Europe/Paris")).replace(
+    previous_floor_hour = datetime.now(tz=ZoneInfo("Europe/Paris")).replace(
         minute=0, second=0, microsecond=0
-    )
+    ) - timedelta(hours=1)
 
-    historic_df_passed = historic_df[historic_df["date_heure"] < now_floor_hour].copy()
+    historic_df_passed = historic_df[
+        historic_df["date_heure"] <= previous_floor_hour
+    ].copy()
     historic_df_passed.sort_values("date_heure", ascending=False, inplace=True)
 
     print(historic_df_passed.head()[["date_heure", "consommation"]])
