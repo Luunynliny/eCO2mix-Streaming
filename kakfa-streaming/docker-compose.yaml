@@ -16,10 +16,10 @@ services:
       timeout: 5s
       retries: 5
 
-  kafka:
+  broker:
     image: confluentinc/cp-kafka:7.5.3
-    hostname: kafka
-    container_name: kafka
+    hostname: broker
+    container_name: broker
     depends_on:
       zookeeper:
         condition: service_healthy
