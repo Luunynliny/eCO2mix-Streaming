@@ -1,17 +1,12 @@
 import pandas as pd
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+from utils import send_to_kafka
 
 API_BASE_URL = "https://odre.opendatasoft.com/api/explore/v2.1"
 
 
-def date_to_utc_p1(date_str):
-    return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S").astimezone(
-        tz=ZoneInfo("Europe/Paris")
-    )
-
-
-if __name__ == "__main__":
+def get_historic_data():
     historic_df = pd.read_csv(
         f"{API_BASE_URL}/catalog/datasets/eco2mix-national-tr/exports/csv",
         delimiter=";",
@@ -28,6 +23,14 @@ if __name__ == "__main__":
     historic_df_passed = historic_df[
         historic_df["date_heure"] <= previous_floor_hour
     ].copy()
-    historic_df_passed.sort_values("date_heure", ascending=False, inplace=True)
 
-    print(historic_df_passed.head()[["date_heure", "consommation"]])
+    historic_df_passed["date_heure"] = historic_df_passed["date_heure"].astype(str)
+
+    return historic_df_passed.sort_values("date_heure", ascending=True).to_dict(
+        orient="records"
+    )
+
+
+if __name__ == "__main__":
+    historic_data = get_historic_data()
+    send_to_kafka(historic_data)
