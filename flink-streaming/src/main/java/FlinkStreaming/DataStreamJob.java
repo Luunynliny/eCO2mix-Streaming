@@ -36,7 +36,7 @@ public class DataStreamJob {
         String topic = "eco2mix-national-tr";
 
         KafkaSource<Transaction> source = KafkaSource.<Transaction>builder()
-                .setBootstrapServers("localhost:9092")
+                .setBootstrapServers("broker:29092")
                 .setTopics(topic)
                 .setGroupId("flink-group")
                 .setStartingOffsets(OffsetsInitializer.earliest())
@@ -44,7 +44,7 @@ public class DataStreamJob {
 
         DataStream<Transaction> transactionDataStream = env.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka source");
 
-        transactionDataStream.print();
+        transactionDataStream.println();
 
         // Execute program, beginning computation.
         env.execute("Flink Java API Skeleton");

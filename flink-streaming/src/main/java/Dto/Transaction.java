@@ -13,8 +13,8 @@ public class Transaction {
     private Integer gaz;
     private Integer nucleaire;
     private Integer eolien;
-    private Integer eolien_terrestre;
-    private Integer eolien_offshore;
+    private String eolien_terrestre;
+    private String eolien_offshore;
     private Integer solaire;
     private Integer hydraulique;
     private Integer pompage;
@@ -24,8 +24,8 @@ public class Transaction {
     private Integer ech_comm_angleterre;
     private Integer ech_comm_espagne;
     private Integer ech_comm_italie;
-    private Integer ech_comm_suisse;
-    private Integer ech_comm_allemagne_belgique;
+    private String ech_comm_suisse;
+    private String ech_comm_allemagne_belgique;
     private Integer fioul_tac;
     private Integer fioul_cogen;
     private Integer fioul_autres;
@@ -39,6 +39,6 @@ public class Transaction {
     private Integer bioenergies_dechets;
     private Integer bioenergies_biomasse;
     private Integer bioenergies_biogaz;
-    private Integer stockage_batterie;
-    private Integer destockage_batterie;
+    private String stockage_batterie;
+    private String destockage_batterie;
 }

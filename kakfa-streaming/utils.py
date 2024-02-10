@@ -1,3 +1,5 @@
+import time
+
 from confluent_kafka import Producer
 import json
 
@@ -22,3 +24,5 @@ def send_to_kafka(data):
         )
 
         producer.flush()
+
+        time.sleep(5)
