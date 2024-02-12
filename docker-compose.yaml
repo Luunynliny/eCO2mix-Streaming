@@ -62,7 +62,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-#
+
 #  elasticsearch:
 #    image: elasticsearch:8.12.0
 #    container_name: elasticsearch
@@ -76,7 +76,7 @@ services:
 #    container_name: kibana
 #    image: kibana:8.12.0
 #    environment:
-#      ELASTICSEARCH_HOSTS: http://es-container:9200
+#      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
 #    depends_on:
 #      - elasticsearch
 #    ports:
@@ -89,13 +89,12 @@ services:
     depends_on:
       broker:
         condition: service_healthy
-#      mavenbuild:
-#        condition: service_completed_successfully
+      mavenbuild:
+        condition: service_completed_successfully
     container_name: jobmanager
     ports:
       - "8081:8081"
-#    command: standalone-job --job-classname FlinkStreaming.DataStreamJob /opt/flink/usrlib/flink-streaming-1.0-SNAPSHOT.jar
-    command: jobmanager
+    command: standalone-job --job-classname FlinkStreaming.DataStreamJob /opt/flink/usrlib/flink-streaming-1.0-SNAPSHOT.jar --target broker:9092
     volumes:
       - ./flink-streaming/target:/opt/flink/usrlib
     environment:
@@ -118,10 +117,10 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 4
 
-#  mavenbuild:
-#    image: maven:3.8.4-openjdk-17-slim
-#    container_name: mavenbuild
-#    command: mvn clean package
-#    volumes:
-#      - ./flink-streaming:/opt/flink/project
-#    working_dir: /opt/flink/project
+  mavenbuild:
+    image: maven:3.8.4-openjdk-17-slim
+    container_name: mavenbuild
+    command: mvn clean package
+    volumes:
+      - ./flink-streaming:/opt/flink/project
+    working_dir: /opt/flink/project
