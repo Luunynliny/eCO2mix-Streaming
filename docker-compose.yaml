@@ -48,20 +48,20 @@ services:
       timeout: 5s
       retries: 5
 
-#  postgres:
-#    image: postgres:latest
-#    container_name: postgres
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_DB: postgres
-#    healthcheck:
-#      test: [ "CMD", "pg_isready", "-U", "postgres" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 #
 #  elasticsearch:
 #    image: elasticsearch:8.12.0
