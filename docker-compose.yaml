@@ -63,34 +63,36 @@ services:
       timeout: 5s
       retries: 5
 
-#  elasticsearch:
-#    image: elasticsearch:8.12.0
-#    container_name: elasticsearch
-#    environment:
-#      xpack.security.enabled: false
-#      discovery.type: single-node
-#    ports:
-#      - "9200:9200"
-#
-#  kibana:
-#    container_name: kibana
-#    image: kibana:8.12.0
-#    environment:
-#      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-#    depends_on:
-#      - elasticsearch
-#    ports:
-#      - "5601:5601"
+  elasticsearch:
+    image: elasticsearch:7.17.18
+    container_name: elasticsearch
+    environment:
+      xpack.security.enabled: false
+      discovery.type: single-node
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: kibana:7.17.18
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
 
 #  Flink
 
   jobmanager:
-    image: flink:1.18.1-scala_2.12-java17
+    image: flink:1.17-java11
     depends_on:
       broker:
         condition: service_healthy
-      mavenbuild:
-        condition: service_completed_successfully
+      kibana:
+        condition: service_started
+#      mavenbuild:
+#        condition: service_completed_successfully
     container_name: jobmanager
     ports:
       - "8081:8081"
@@ -104,7 +106,7 @@ services:
         parallelism.default: 2
 
   taskmanager:
-    image: flink:1.18.1-scala_2.12-java17
+    image: flink:1.17-java11
     depends_on:
       - jobmanager
     container_name: taskmanager
@@ -117,10 +119,10 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 4
 
-  mavenbuild:
-    image: maven:3.8.4-openjdk-17-slim
-    container_name: mavenbuild
-    command: mvn clean package
-    volumes:
-      - ./flink-streaming:/opt/flink/project
-    working_dir: /opt/flink/project
+#  mavenbuild:
+#    image: maven:3.8.4-openjdk-17-slim
+#    container_name: mavenbuild
+#    command: mvn clean package
+#    volumes:
+#      - ./flink-streaming:/opt/flink/project
+#    working_dir: /opt/flink/project

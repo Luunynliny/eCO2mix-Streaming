@@ -3,7 +3,7 @@ package Dto;
 import lombok.Data;
 
 @Data
-public class Transaction {
+public class Consumption {
     private String date_heure;
     private Integer consommation;
     private Integer prevision_j1;
