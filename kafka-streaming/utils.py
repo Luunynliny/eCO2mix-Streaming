@@ -1,7 +1,7 @@
+import json
 import time
 
 from confluent_kafka import Producer
-import json
 
 
 def delivery_report(err, msg):
@@ -13,7 +13,7 @@ def delivery_report(err, msg):
 
 def send_to_kafka(data):
     topic = "eco2mix-national-tr"
-    producer = Producer({"bootstrap.servers": "localhost:9092"})
+    producer = Producer({"bootstrap.servers": "broker:29092"})
 
     for d in data:
         producer.produce(

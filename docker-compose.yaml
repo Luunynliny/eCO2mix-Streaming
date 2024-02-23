@@ -14,7 +14,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     healthcheck:
-      test: ["CMD", "bash", "-c", "echo 'ruok' | nc localhost 2181"]
+      test: [ "CMD", "bash", "-c", "echo 'ruok' | nc localhost 2181" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -82,7 +82,7 @@ services:
     ports:
       - "5601:5601"
 
-#  Flink
+  #  Flink
 
   jobmanager:
     image: flink:1.17-java11
@@ -91,8 +91,10 @@ services:
         condition: service_healthy
       kibana:
         condition: service_started
-#      mavenbuild:
-#        condition: service_completed_successfully
+      jobbuilder:
+        condition: service_completed_successfully
+      data:
+        condition: service_started
     container_name: jobmanager
     ports:
       - "8081:8081"
@@ -119,10 +121,18 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 4
 
-#  mavenbuild:
-#    image: maven:3.8.4-openjdk-17-slim
-#    container_name: mavenbuild
-#    command: mvn clean package
-#    volumes:
-#      - ./flink-streaming:/opt/flink/project
-#    working_dir: /opt/flink/project
+  jobbuilder:
+    image: maven:3.8.4-openjdk-17-slim
+    container_name: mavenbuild
+    command: mvn clean package
+    volumes:
+      - ./flink-streaming:/opt/flink/project
+    working_dir: /opt/flink/project
+
+  data:
+    build:
+      context: ./kafka-streaming
+    depends_on:
+      broker:
+        condition: service_healthy
+    container_name: data
