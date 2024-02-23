@@ -1,7 +1,9 @@
-import requests
-from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
+
 import pandas as pd
+import requests
+
 from utils import send_to_kafka
 
 API_BASE_URL = "https://odre.opendatasoft.com/api/explore/v2.1"
