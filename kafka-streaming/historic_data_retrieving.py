@@ -1,6 +1,8 @@
-import pandas as pd
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+
+import pandas as pd
+
 from utils import send_to_kafka
 
 API_BASE_URL = "https://odre.opendatasoft.com/api/explore/v2.1"
@@ -22,7 +24,7 @@ def get_historic_data():
 
     historic_df_passed = historic_df[
         historic_df["date_heure"] <= previous_floor_hour
-    ].copy()
+        ].copy()
 
     historic_df_passed["date_heure"] = historic_df_passed["date_heure"].astype(str)
 
