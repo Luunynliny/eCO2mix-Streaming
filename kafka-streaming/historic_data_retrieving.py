@@ -26,7 +26,8 @@ def get_historic_data():
         historic_df["date_heure"] <= previous_floor_hour
         ].copy()
 
-    historic_df_passed["date_heure"] = historic_df_passed["date_heure"].astype(str)
+    historic_df_passed["date_heure"] = pd.to_datetime(historic_df_passed["date_heure"]).dt.strftime(
+        '%Y-%m-%dT%H:%M:%S')
 
     return historic_df_passed.sort_values("date_heure", ascending=True).to_dict(
         orient="records"
