@@ -71,6 +71,8 @@ services:
       discovery.type: single-node
     ports:
       - "9200:9200"
+    volumes:
+      - ./kibana-dashboards:/usr/share/elasticsearch/data
 
   kibana:
     image: kibana:7.17.18
