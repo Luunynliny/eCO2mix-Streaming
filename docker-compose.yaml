@@ -71,6 +71,8 @@ services:
       discovery.type: single-node
     ports:
       - "9200:9200"
+    volumes:
+      - ./kibana-dashboards:/usr/share/elasticsearch/data
 
   kibana:
     image: kibana:7.17.18
@@ -91,8 +93,8 @@ services:
         condition: service_healthy
       kibana:
         condition: service_started
-      jobbuilder:
-        condition: service_completed_successfully
+      #      jobbuilder:
+      #        condition: service_completed_successfully
       data:
         condition: service_started
     container_name: jobmanager
@@ -121,13 +123,13 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 4
 
-  jobbuilder:
-    image: maven:3.8.4-openjdk-17-slim
-    container_name: mavenbuild
-    command: mvn clean package
-    volumes:
-      - ./flink-streaming:/opt/flink/project
-    working_dir: /opt/flink/project
+  #  jobbuilder:
+  #    image: maven:3.8.4-openjdk-17-slim
+  #    container_name: mavenbuild
+  #    command: mvn clean package
+  #    volumes:
+  #      - ./flink-streaming:/opt/flink/project
+  #    working_dir: /opt/flink/project
 
   data:
     build:
