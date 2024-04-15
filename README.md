@@ -26,6 +26,19 @@
 
 ### Architecture
 
+<div align="center">
+    <img src="imgs/architecture.png" alt="architecture">
+</div>
+
+### Dashboard
+
+<div align="center">
+    <img src="imgs/dashboard.png" alt="dashboard">
+</div>
+
+<p align="right"><a href="#top"><i>back to top</i></a></p>
+
+
 <!-- GETTING STARTED -->
 
 ## Getting started
