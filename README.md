@@ -24,6 +24,18 @@
 
 ## About
 
+The project aims to provide a solution to an industrial problematic by providing data streaming infrastructure to
+monitor real-time data.
+
+With the environmental urge regarding climate change, eCO2mix-Streaming retrieves France live energy production and
+consumption data, stores it within a database and produces relevant insights.
+
+Among the created visualizations :
+
+- Energy consumption against forecasts
+- Energy production type distribution
+- CO2 emissions
+
 ### Architecture
 
 <div align="center">
