@@ -95,7 +95,7 @@ services:
         condition: service_started
       #      jobbuilder:
       #        condition: service_completed_successfully
-      data:
+      historicdata:
         condition: service_started
     container_name: jobmanager
     ports:
@@ -108,6 +108,7 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         parallelism.default: 2
+    restart: always
 
   taskmanager:
     image: flink:1.17-java11
@@ -131,10 +132,22 @@ services:
   #      - ./flink-streaming:/opt/flink/project
   #    working_dir: /opt/flink/project
 
-  data:
+  historicdata:
     build:
       context: ./kafka-streaming
+      dockerfile: Dockerfile_hd
     depends_on:
       broker:
         condition: service_healthy
-    container_name: data
+    container_name: historicdata
+
+  realtimedata:
+    build:
+      context: ./kafka-streaming
+      dockerfile: Dockerfile_rtd
+    depends_on:
+      broker:
+        condition: service_healthy
+      historicdata:
+        condition: service_completed_successfully
+    container_name: realtimedata
