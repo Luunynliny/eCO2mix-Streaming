@@ -93,8 +93,8 @@ services:
         condition: service_healthy
       kibana:
         condition: service_started
-      #      jobbuilder:
-      #        condition: service_completed_successfully
+      jobbuilder:
+        condition: service_completed_successfully
       historicdata:
         condition: service_started
     container_name: jobmanager
@@ -124,13 +124,13 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 4
 
-  #  jobbuilder:
-  #    image: maven:3.8.4-openjdk-17-slim
-  #    container_name: mavenbuild
-  #    command: mvn clean package
-  #    volumes:
-  #      - ./flink-streaming:/opt/flink/project
-  #    working_dir: /opt/flink/project
+  jobbuilder:
+    image: maven:3.8.4-openjdk-17-slim
+    container_name: mavenbuild
+    command: mvn clean package
+    volumes:
+      - ./flink-streaming:/opt/flink/project
+    working_dir: /opt/flink/project
 
   historicdata:
     build:
