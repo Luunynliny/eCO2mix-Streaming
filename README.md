@@ -45,7 +45,22 @@
 
 ### Prerequisites
 
+Prior to installing the project, you need to download and setup Git and Docker, referring to the following
+documentation:
+
+- https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- https://docs.docker.com/engine/install/
+
 ### Installation
+
+1. Clone the repository
+2. Run Docker compose
+
+```bash
+docker compose up
+```
+
+3. Go to http://0.0.0.0:5601/app/dashboards and select the available dashboard.
 
 <p align="right"><a href="#top"><i>back to top</i></a></p>
 
