@@ -46,4 +46,10 @@ Distributed under the Creative Commons Zero v1.0 Universal License. See `LICENSE
 
 ## Resources
 
+Ganiyu, Y. (2023, December 4). Realtime streaming with Apache Flink: End to end data engineering project.
+YouTube. https://youtu.be/deepQRXnniM?si=nOpgyGbQEY_-fU0D
+
+RTE. (n.d.). Données éco2mix Nationales Temps réel. Open Data Réseaux Énergies (
+ODRÉ). https://odre.opendatasoft.com/explore/dataset/eco2mix-national-tr/information/?disjunctive.nature
+
 <p align="right"><a href="#top"><i>back to top</i></a></p>
